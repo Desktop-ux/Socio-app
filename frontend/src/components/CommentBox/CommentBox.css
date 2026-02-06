@@ -1,0 +1,19 @@
+.comments {
+  margin-top: 8px;
+  padding-left: 4px;
+}
+
+.comment {
+  font-size: 13px;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.comment-user {
+  font-weight: 600;
+  margin-right: 4px;
+}
+
+.comment-text {
+  font-weight: normal;
+}
