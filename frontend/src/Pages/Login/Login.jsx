@@ -1,63 +1,84 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import api from "../../api/api";
 import "./Login.css";
 
 export default function Login({ onLogin, goSignup }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const cardRef = useRef(null);
+
+  useEffect(() => {
+    gsap.fromTo(
+      cardRef.current,
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
+    );
+  }, []);
 
   const handleLogin = async () => {
     if (!email || !password) {
-      return alert("Fill all fields");
+      alert("Fill all fields");
+      return;
     }
 
     try {
-      // 🔑 GET RESPONSE
       const res = await api.post("/auth/login", {
         email,
         password,
       });
 
-      // ✅ SAVE USER INFO (THIS FIXES HEADER)
+     
       localStorage.setItem("username", res.data.user.username);
+      localStorage.setItem("email", res.data.user.email);
       localStorage.setItem("userId", res.data.user._id);
 
-      // optional: if backend sends token
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-      }
-
-      // ✅ CONTINUE APP FLOW
       onLogin();
-
     } catch (err) {
-      console.error(err);
-      alert("Invalid email or password");
+      alert("Invalid credentials");
     }
   };
 
   return (
-    <div className="auth-container">
-      <h2>Login</h2>
+    <div className="auth-layout">
+      {/* LEFT VISUAL (DESKTOP ONLY) */}
+      <div className="auth-visual">
+        {/* <h1>Share your moments</h1>
+        <p>Post • Like • Connect</p> */}
+      </div>
 
-      <input
-        placeholder="Email"
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-      />
+      {/* RIGHT FORM */}
+      <div className="auth-form">
+        <div className="auth-card" ref={cardRef}>
+          <h2 className="auth-title">Welcome Back 👋</h2>
+          <p className="auth-subtitle">Login to continue</p>
 
-      <input
-        type="password"
-        placeholder="Password"
-        value={password}
-        onChange={(e) => setPassword(e.target.value)}
-      />
+          <div className="input-group">
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
 
-      <button onClick={handleLogin}>Login</button>
+            <input
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+            />
+          </div>
 
-      <p onClick={goSignup} className="link">
-        Don’t have an account? Sign up
-      </p>
+          <button className="primary-btn" onClick={handleLogin}>
+            Login
+          </button>
+
+          <p className="switch-text">
+            Don’t have an account?{" "}
+            <span onClick={goSignup}>Sign up</span>
+          </p>
+        </div>
+      </div>
     </div>
   );
 }

@@ -1,20 +1,59 @@
-.navbar {
+/* =====================
+   BASE (MOBILE)
+===================== */
+.bottom-navbar {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: 55px;
+  height: 56px;
   background: white;
+  border-top: 1px solid #eee;
   display: flex;
   justify-content: space-around;
   align-items: center;
-  border-top: 1px solid #ddd;
   z-index: 100;
 }
 
-.navbar button {
+/* ICON BUTTONS */
+.bottom-navbar button {
   background: none;
   border: none;
   font-size: 22px;
   cursor: pointer;
+  color: #444;
+}
+
+/* ACTIVE STATE */
+.bottom-navbar .active {
+  color: #000;
+}
+
+/* AVATAR */
+.nav-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* =====================
+   TABLET (768px – 1023px)
+===================== */
+@media (min-width: 768px) and (max-width: 1023px) {
+  .bottom-navbar {
+    height: 60px;
+  }
+
+  .bottom-navbar button {
+    font-size: 24px;
+  }
+}
+
+/* =====================
+   DESKTOP (≥1024px)
+===================== */
+@media (min-width: 1124px) {
+  .bottom-navbar {
+    display: none;
+  }
 }

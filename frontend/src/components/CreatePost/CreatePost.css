@@ -1,9 +1,19 @@
+/* ======================
+   BASE (MOBILE)
+====================== */
+
 .create-post {
   background: white;
   padding: 15px;
   border-radius: 12px;
   margin-bottom: 18px;
   box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+}
+
+.create-post h2 {
+  font-size: 1.4rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
 }
 
 .create-post textarea {
@@ -16,6 +26,7 @@
   font-size: 14px;
 }
 
+/* ACTIONS */
 .create-actions {
   display: flex;
   justify-content: space-between;
@@ -32,10 +43,6 @@
   background-color: #1976d2;
 }
 
-.image-picker:hover {
-  text-decoration: underline;
-}
-
 .create-actions button {
   background: #1976d2;
   color: white;
@@ -46,6 +53,7 @@
   font-size: 14px;
 }
 
+/* IMAGE PREVIEW */
 .image-preview {
   position: relative;
   margin-top: 10px;
@@ -68,4 +76,38 @@
   padding: 4px 8px;
   border-radius: 50%;
   cursor: pointer;
+}
+
+
+/* ======================
+   TABLET (768px+)
+====================== */
+
+@media (min-width: 768px) {
+  .create-post {
+    padding: 18px;
+  }
+
+  .create-post h2 {
+    font-size: 1.5rem;
+  }
+
+  .image-preview img {
+    max-height: 300px;
+  }
+}
+
+
+/* ======================
+   DESKTOP (1024px+)
+====================== */
+
+@media (min-width: 1024px) {
+  .create-post {
+    padding: 20px;
+  }
+
+  .image-preview img {
+    max-height: 350px;
+  }
 }

@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useState, forwardRef } from "react";
 import api from "../../api/api";
 import "./CreatePost.css";
 
-export default function CreatePost({ refresh }) {
+const CreatePost = forwardRef(({ refresh }, ref) => {
   const [text, setText] = useState("");
   const [image, setImage] = useState(null);
   const [preview, setPreview] = useState(null);
@@ -19,7 +19,7 @@ export default function CreatePost({ refresh }) {
 
     await api.post("/posts", formData);
 
-    // reset everything after successful post
+    // reset after post
     setText("");
     setImage(null);
     setPreview(null);
@@ -27,7 +27,8 @@ export default function CreatePost({ refresh }) {
   };
 
   return (
-    <div className="create-post">
+    <div ref={ref} className="create-post">
+      <h2>Create Post</h2>
       {/* TEXT */}
       <textarea
         placeholder="What's on your mind?"
@@ -54,7 +55,7 @@ export default function CreatePost({ refresh }) {
       {/* ACTIONS */}
       <div className="create-actions">
         <label className="image-picker">
-          📷 Add Image
+          Add Image
           <input
             type="file"
             accept="image/*"
@@ -73,4 +74,6 @@ export default function CreatePost({ refresh }) {
       </div>
     </div>
   );
-}
+});
+
+export default CreatePost;
