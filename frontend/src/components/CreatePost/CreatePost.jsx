@@ -13,18 +13,24 @@ const CreatePost = forwardRef(({ refresh }, ref) => {
       return;
     }
 
-    const formData = new FormData();
-    if (text) formData.append("text", text);
-    if (image) formData.append("image", image);
+    try {
+      const formData = new FormData();
+      if (text) formData.append("text", text);
+      if (image) formData.append("image", image);
 
-    await api.post("/posts", formData);
+      const res = await api.post("/posts", formData);
 
-    // reset after post
-    setText("");
-    setImage(null);
-    setPreview(null);
-    refresh();
+      setText("");
+      setImage(null);
+      setPreview(null);
+      refresh();
+    } catch (err) {
+      console.error(err.response?.data);
+      alert(err.response?.data?.message || "Unauthorized");
+    }
   };
+
+
 
   return (
     <div ref={ref} className="create-post">
